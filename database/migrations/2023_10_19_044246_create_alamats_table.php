@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('alamats', function (Blueprint $table) {
+            $table->id();
+            $table->foreignID('id_user')->references('id')->on('users');
+            $table->string('label');
+            $table->string('kecamatan');
+            $table->string('kabupaten');
+            $table->string('provinsi');
+            $table->string('nama_jalan');
+            $table->string('penerima');
+            $table->string('telepon');
+            $table->string('kode_pos');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('alamats');
+    }
+};

@@ -1,0 +1,312 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.container-image {
+    background-image: url('../images/dashboard.png');
+    /* Ganti path/to/your/image.jpg dengan path gambar Anda */
+    background-size: cover;
+    /* Atur bagaimana gambar diatur dalam wadah */
+}
+
+/* Perangkat dengan lebar layar lebih besar dari 576px (Breakpoint: Extra small devices) */
+
+.w-custom {
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .w-custom {
+        width: 50% !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .w-custom {
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 1440px) {
+    .w-custom {
+        width: 50% !important;
+    }
+}
+
+
+
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.border-greenlight {
+    border: 1px solid #A3D95D !important;
+    /* Mengatur border dengan lebar 2px dan warna #A3D95D */
+}
+
+.greendark {
+    color: #598420;
+}
+
+.bg-footer {
+    color: #729841;
+    background-color: #729841;
+}
+
+/* Merubah warna placeholder */
+.placeholder-greendark::placeholder {
+    color: #598420;
+    /* Ganti dengan warna yang diinginkan */
+}
+
+/* Atur border top untuk tabel dengan kelas .custom-table */
+.table-border-td {
+    border-collapse: collapse;
+    /* Menggabungkan batas antar sel */
+}
+
+.table-border-td th,
+.table-border-td td {
+    border-top: 1px solid #000000;
+    /* Tambahkan border top 1px solid dengan warna abu-abu */
+    border-bottom: 1px solid #000000;
+    /* Tambahkan border top 1px solid dengan warna abu-abu */
+}
+
+.custom-foot {
+    margin-bottom: 130;
+}
+
+.bg-greenlightw {
+    color: #CAE9A1;
+    background-color: #CAE9A1;
+}
+
+.bg-greendark {
+    color: #598420;
+    background-color: #598420;
+}
+
+
+
+.greenlight {
+    color: #A3D95D;
+}
+
+.modal-b {
+    border-bottom: none;
+}
+
+.modal-t {
+    border-top: none;
+}
+
+.bg-grey {
+    background-color: #DFDFDF;
+    border-color: #DFDFDF;
+
+}
+
+.size-wide {
+    width: 100%;
+    /* Menyesuaikan dengan lebar kontainer */
+    height: 200px;
+    /* Menyesuaikan dengan tinggi tertentu */
+    resize: none;
+    /* Menonaktifkan kemampuan resize */
+}
+
+icon-shape {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.icon-sm {
+    width: 2rem;
+    height: 2rem;
+
+}
+
+.card-w {
+    width: 300px;
+}
+
+@media (max-width: 576px) {
+    .card-w {
+        width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-w {
+        width: 300px;
+    }
+}
+
+@media (max-width: 992px) {
+    .card-w {
+        width: 300px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .card-w {
+        width: 300px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .card-w {
+        width: 300px;
+    }
+}
+
+.card-w-md {
+    width: 350px;
+}
+
+@media (min-width: 576px) {
+    .card-w-md {
+        width: 350px;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-w-md {
+        width: 350px;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-w-md {
+        width: 350px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-w-md {
+        width: 350px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .card-w-md {
+        width: 350px;
+    }
+}
+
+.btn-list {
+    /* Gaya dasar tombol */
+    border: none;
+    cursor: pointer;
+    /* Transisi untuk efek hover */
+    transition: background-color 0.3s ease;
+}
+
+/* Efek hover */
+.btn-list:hover {
+    background-color: #474848;
+    /* Ganti dengan warna yang diinginkan */
+}
+
+.para-w {
+    width: 100%;
+}
+
+@media (min-width: 576px) {
+    .para-w {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .para-w {
+        width: 700px;
+    }
+}
+
+@media (min-width: 992px) {
+    .para-w {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .para-w {
+        width: 600px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .para-w {
+        width: 100%;
+    }
+}
+
+.checkbox-lg .form-check-input {
+    top: .8rem;
+    scale: 1.8;
+
+}
+
+.checkbox-lg .form-check-label {
+    padding-top: 13px;
+}
+
+.checkbox-xl .form-check-input {
+    top: 1.2rem;
+    scale: 1.7;
+
+}
+
+.checkbox-xl .form-check-label {
+    padding-top: 19px;
+}
+
+/* .search-w {
+    width: 110%;
+}
+
+@media (max-width: 576px) {
+    .search-w {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-w {
+        width: 110%;
+    }
+}
+
+@media (max-width: 992px) {
+    .search-w {
+        width: 110%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .search-w {
+        width: 110%;
+    }
+}
+
+@media (max-width: 1400px) {
+    .search-w {
+        width: 110%;
+    }
+} */
+
+
+.fa-star.active {
+    color: yellow;
+    -webkit-text-stroke: 0.5px black;
+}
