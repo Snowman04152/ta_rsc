@@ -74,11 +74,12 @@
                                                         </div>
                                                         <div class="mt-3">
 
-                                                            <form id='nested-form' method="POST"
+                                                            <form id="form_delete" method="POST"
                                                                 action="{{ route('keranjang.destroy', ['keranjang' => $keranjangs->id]) }}">
                                                                 @csrf
                                                                 @method('delete')
-                                                                <button type="submit" class="btn btn-secondary ">
+                                                                <button type="submit" id="delete"
+                                                                    class="btn btn-outline-greenlight ">
                                                                     <div class="i bi bi-trash"></div>
                                                                 </button>
                                                             </form>
@@ -222,8 +223,48 @@
                     location.reload();
                 });
             }
-            $("#submit").trigger("submit");
+            Swal.fire({
+                    title: 'Apakah Anda Yakin ?',
+                    text: 'Semua Produk yang ada dalam keranjang akan dipesan',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Tidak'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit form secara otomatis saat pengguna mengonfirmasi
+                        document.getElementById('submit').submit();
+                    }
+                });
         })
+    </script>
+
+    <script type="module">
+        $(document).ready(function() {
+            $(document).on('click', '#delete', function(e) {
+                e.preventDefault();
+
+                // Tampilkan konfirmasi SweetAlert sebelum melakukan tindakan
+                Swal.fire({
+                    title: 'Apakah Anda Ingin Menghapus Produk Dari Keranjang ?',
+                    text: '',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Tidak'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit form secara otomatis saat pengguna mengonfirmasi
+                        document.getElementById('form_delete').submit();
+                    }
+                });
+            });
+            
+        });
     </script>
 @endsection
 <script>
@@ -233,7 +274,7 @@
 
             cartItems.forEach(item => {
                 const index = item.dataset.index;
-                const varianBerat = parseInt(item.dataset.berat);
+                const varianBerat = parseFloat(item.dataset.berat);
                 const quantity = item.querySelector(`#quantity-${index}`);
                 const quantityhid = item.querySelector(`#quantity-hid${index}`);
                 const btnMinus = item.querySelector(`#btn-minus-${index}`);
@@ -241,7 +282,7 @@
                 // const total = item.querySelector(`#total-${index}`);
 
                 const hargaSatuan = parseInt(item.dataset.harga);
-                const stok = parseInt({{ $keranjangs->varian->produk->stok }});
+                const stok = parseFloat({{ $keranjangs->varian->produk->stok }});
                 const Jmlproduk = document.getElementById('total_produk');
                 const Jmltotal = document.getElementById('total_harga');
 

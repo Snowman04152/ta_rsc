@@ -62,7 +62,7 @@ class KeranjangController extends Controller
         $keranjang->jumlah_produk = $request->quantity;
         $keranjang->save();
 
-        
+        Alert::success('Berhasil Ditambahkan', 'Produk Dimasukkan Keranjang!');
         return redirect()->route('detailproduk', ['id' => $produk, 'varian' => $id]);
     }
 
@@ -101,6 +101,8 @@ class KeranjangController extends Controller
         }
 
         // Update the properties of another Varian with the same $id_produk
+        Alert::success('Berhasil Dihapus');
         return redirect()->route('keranjang.index');
+
     }
 }

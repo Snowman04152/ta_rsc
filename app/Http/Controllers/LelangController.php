@@ -132,9 +132,20 @@ class LelangController extends Controller
     {
         $pageTitle = 'Detail Lelang';
         $lelang = ProdukLelang::find($id);
-        $penawaran = PenawaranLelang::with('user')->whereHas('user')->where('id_produk_lelang', $id)->get();
+        $penawaran = PenawaranLelang::with('user','produk_lelang')->whereHas('user')->where('id_produk_lelang', $id)->where('status_tawaran',1)->get();
         $pengingat = PengingatLelang::where('id_produk_lelang', $id)->with('user')->whereHas('user')->get();
         return view('admin.lelang.detaillelang', compact('pageTitle', 'lelang', 'pengingat', 'penawaran'));
+    }
+
+    public function CancelLelang(string $id){
+        $penawaran = PenawaranLelang::find($id);
+        $user = User::where('id',$penawaran->id_user)->first();
+        $user->status = 0 ;
+        $penawaran->status_tawaran = 0 ;
+  
+        $user->save();
+        $penawaran->save();
+        return redirect()->route('lelang.show', ['lelang' => $penawaran->id_produk_lelang]);
     }
 
     public function lelangShow()
@@ -257,10 +268,12 @@ class LelangController extends Controller
 
     public function checkoutLelangView(string $id)
     {
-        $transaksilelang = TransaksiLelang::find($id);
+        $transaksilelang = TransaksiLelang::where('id_penawaran', $id)->first();
+ 
         $penawaran = PenawaranLelang::with(['produk_lelang', 'user'])->find($transaksilelang->id_penawaran);
         $alamat = Alamat::find($transaksilelang->id_alamat);
-        $snapToken = TransaksiLelang::find($transaksilelang->id_penawaran)->value('snaptoken');
+
+        $snapToken = $transaksilelang->value('snaptoken');
 
         return view('customer.pesanan.pembayaranlelang', ['id' => $id], compact('snapToken', 'alamat', 'penawaran', 'transaksilelang'));
     }
@@ -329,13 +342,13 @@ class LelangController extends Controller
     }
     public function callBack(Request $request)
     {
-
         $server_key = config('midtrans.server_key');
         $hashed = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $server_key);
         if ($hashed == $request->signature_key) {
             $type = explode('_', $request->order_id)[0];
             $order_id = explode('_', $request->order_id)[1];
-            if ($request->transaction_status == 'capture') {
+            
+            if ($request->transaction_status == 'capture' || $request->transaction_status == 'settlement') {
                 if ($type == 'lelang') {
                     $transaksilelang = TransaksiLelang::find($order_id);
                     if ($transaksilelang->kurir = 'AMBIL_DITEMPAT') {
@@ -607,6 +620,15 @@ class LelangController extends Controller
         $lelang = ProdukLelang::find($id);
         $lelang->status_lelang = 3 ;
         $lelang->save();
+        Alert::success('Lelang Telah Non Aktif');
+        return redirect()->route('lelang.index');
+    }
+    public function Aktif(string $id){
+
+        $lelang = ProdukLelang::find($id);
+        $lelang->status_lelang = 0 ;
+        $lelang->save();
+        Alert::success('Lelang Telah Aktif');
         return redirect()->route('lelang.index');
     }
 

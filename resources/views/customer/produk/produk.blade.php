@@ -73,8 +73,9 @@
                                                 $ulasanTotal = 0;
                                             } else {
                                                 $ratingTotal = $ulasan->sum('rating') / $ulasan->count();
-                                                $transaksiTotal = App\Models\Keranjang::where('id_varian', $varian->id)
-                                                    ->whereNotNull('id_transaksi')
+                                                $transaksiTotal = App\Models\Keranjang::join('varians', 'keranjangs.id_varian', '=', 'varians.id')
+                                                    ->where('varians.id_produk', $varian->id_produk)
+                                                    ->whereNotNull('keranjangs.id_transaksi')
                                                     ->count();
                                                 $ulasanTotal = $ulasan->count();
                                             }
@@ -91,11 +92,13 @@
                                     </p>
                                     <div class="d-flex justify-content-between">
                                         <div>
-                                            <div><i class=" fas fa-star amber-text active">&nbsp</i><span>{{$ratingTotal}}</span></div>
-                                        
+                                            <div><i
+                                                    class=" fas fa-star amber-text active">&nbsp</i><span>{{ $ratingTotal }}</span>
+                                            </div>
+
                                         </div>
                                         <div>
-                                            <span class="ms-2">{{$transaksiTotal}} Terjual</span>
+                                            <span class="ms-2">{{ $transaksiTotal }} Terjual</span>
                                         </div>
                                     </div>
                                 </div>
@@ -166,11 +169,13 @@
                                     </p>
                                     <div class="d-flex justify-content-between">
                                         <div>
-                                            <div><i class=" fas fa-star amber-text active">&nbsp</i><span>{{$ratingTotal}}</span></div>
-                                        
+                                            <div><i
+                                                    class=" fas fa-star amber-text active">&nbsp</i><span>{{ $ratingTotal }}</span>
+                                            </div>
+
                                         </div>
                                         <div>
-                                            <span class="ms-2">{{$transaksiTotal}} Terjual</span>
+                                            <span class="ms-2">{{ $transaksiTotal }} Terjual</span>
                                         </div>
                                     </div>
                                 </div>

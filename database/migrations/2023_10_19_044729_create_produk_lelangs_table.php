@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('nama_produk_lelang');
             $table->integer('harga_lelang');
             $table->integer('harga_lelang_process');
-            $table->integer('berat');
+            $table->float('berat');
             $table->string('umur_simpan');
             $table->integer('kelipatan');
             $table->text('deskripsi');

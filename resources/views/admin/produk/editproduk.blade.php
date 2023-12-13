@@ -246,46 +246,7 @@
         console.log(window.Swal)
     </script>
 @endsection
-<script type="module">
-    $(document).ready(function() {
-        $(document).on('click', '.btn-delete', function(e) {
-            e.preventDefault();
 
-            // Tampilkan konfirmasi SweetAlert sebelum penghapusan
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'You won\'t be able to revert this!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Lakukan penghapusan menggunakan AJAX
-                    $.ajax({
-                        url: $('#deleteForm').attr('action'),
-                        type: 'DELETE',
-                        data: $('#deleteForm').serialize(),
-                        success: function(response) {
-                            // Tampilkan pesan sukses setelah menghapus
-                            Swal.fire('Deleted!', 'Your item has been deleted.',
-                                'success');
-                            // Atau lakukan sesuatu setelah berhasil menghapus, seperti memuat ulang halaman
-                            // window.location.reload();
-                        },
-                        error: function(xhr) {
-                            // Tampilkan pesan error jika terjadi kesalahan saat menghapus
-                            Swal.fire('Error!',
-                                'There was an error deleting the item.', 'error'
-                            );
-                        }
-                    });
-                }
-            });
-        });
-    });
-</script>
 <script type="module">
     document.addEventListener('click', function(event) {
         if (event.target.matches('.edit-varian')) {

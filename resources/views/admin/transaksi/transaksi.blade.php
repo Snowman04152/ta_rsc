@@ -67,6 +67,7 @@
                                     ->where('id_transaksi', $transaksis->id)
                                     ->first();
                                 $jumlah = App\Models\Keranjang::where('id_transaksi', $transaksis->id)->count();
+                                
                             @endphp
                             <td >{{ $transaksis->user->username }}</td>
                             @if ($jumlah <= 1)

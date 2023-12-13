@@ -44,14 +44,14 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <div class="fw-bold"><span>Tanggal Pengambilan</span>
-                                    <input type="datetime-local" name='tanggal_ambil' id='tanggal_ambil' required
+                                <div class="fw-bold"><span>Tanggal Konfirmasi</span>
+                                    <input type="datetime-local" name='tanggal_konfirmasi' id='tanggal_konfirmasi' required
                                         class="form-control my-2" placeholder="Isi Umur Simpan">
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="fw-bold"><span>Tanggal Konfirmasi</span>
-                                    <input type="datetime-local" name='tanggal_konfirmasi' id='tanggal_konfirmasi' required
+                                <div class="fw-bold"><span>Tanggal Pengambilan</span>
+                                    <input type="datetime-local" name='tanggal_ambil' id='tanggal_ambil' required
                                         class="form-control my-2" placeholder="Isi Umur Simpan">
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="fw-bold"><span>Berat</span>
-                                    <input type="number" name='berat' id='berat' required class="form-control my-2"
+                                    <input type="number" step="0.1" name='berat' id='berat' required class="form-control my-2"
                                         placeholder="Isi berat ">
                                 </div>
                             </div>

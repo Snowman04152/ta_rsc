@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('rating')->nullable();
             $table->date('tanggal_pengambilan')->nullable();
             $table->integer('status')->nullable();
-            $table->integer('stok')->nullable();
+            $table->float('stok')->nullable();
             $table->integer('status_pengambilan')->nullable();
             $table->string('lokasi_pengambilan')->nullable();
             $table->string('original_filename')->nullable();

@@ -53,6 +53,7 @@ Route::middleware('guest:web')->group(function () {
 Route::middleware('auth:web')->group(function () {
     Route::resource('keranjang', KeranjangController::class);
     Route::post('/keranjang/{id}', [KeranjangController::class, 'store'])->name('keranjang.store');
+    
     Route::resource('profil', ProfilController::class);
     Route::put('profil', [ProfilController::class, 'editPassword'])->name('profil.editpass');
     Route::put('alamat', [ProfilController::class, 'updateAlamat'])->name('profil.updateAlamat');
@@ -105,12 +106,15 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('transaksidlelangetail/{id}', [AdminController::class, 'transaksiLelangDetail'])->name('transaksi.lelang.detail');
     Route::post('/addresi/{id}', [ProdukController::class, 'addResi'])->name('addResi');
     Route::get('/confirm/{id}', [ProdukController::class, 'TransaksiConfirm'])->name('confirm');
+    Route::get('/aktif/{id}', [LelangController::class, 'AktConfirm'])->name('confirm');
+    Route::get('/aktif/{id}', [LelangController::class, 'Aktif'])->name('lelang.aktif');
     Route::get('/nonaktif/{id}', [LelangController::class, 'nonAktif'])->name('lelang.nonaktif');
     Route::get('/cancel/{id}', [ProdukController::class, 'TransaksiCancel'])->name('cancel');
     Route::get('/end/{id}', [ProdukController::class, 'TransaksiEnd'])->name('end');
     Route::post('/addresilelang/{id}', [LelangController::class, 'addResi'])->name('addResi.lelang');
     Route::get('/confirmlelang/{id}', [LelangController::class, 'TransaksiConfirm'])->name('confirm.lelang');
     Route::get('/cancellelang/{id}', [LelangController::class, 'TransaksiCancel'])->name('cancel.lelang');
+    Route::get('/cancelpenawaran/{id}', [LelangController::class, 'CancelLelang'])->name('cancel.penawaran');
     Route::get('/endlelang/{id}', [LelangController::class, 'TransaksiEnd'])->name('end.lelang');
     Route::get('/public-disk', function () {
         Storage::disk('public');

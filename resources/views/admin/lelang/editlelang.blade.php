@@ -72,17 +72,6 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="fw-bold"><span>Tanggal Pengambilan</span>
-                                <input type="datetime" name='tanggal_ambil' id='tanggal_ambil' required
-                                    class="form-control my-2 @error('tanggal_ambil') is-invalid @enderror"
-                                    value='{{ $errors->any() ? old('tanggal_ambil') : $lelang->tanggal_pengambilan }}'
-                                    placeholder="Isi Umur Simpan">
-                                @error('tanggal_ambil')
-                                    <div class="text-danger"><small>{{ $message }}</small></div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col">
                             <div class="fw-bold"><span>Tanggal Konfirmasi</span>
                                 <input type="datetime-local" name='tanggal_konfirmasi' id='tanggal_konfirmasi' required
                                     class="form-control my-2 @error('tanggal_konfirmasi') is-invalid @enderror"
@@ -93,11 +82,22 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col">
+                            <div class="fw-bold"><span>Tanggal Pengambilan</span>
+                                <input type="datetime" name='tanggal_ambil' id='tanggal_ambil' required
+                                    class="form-control my-2 @error('tanggal_ambil') is-invalid @enderror"
+                                    value='{{ $errors->any() ? old('tanggal_ambil') : $lelang->tanggal_pengambilan }}'
+                                    placeholder="Isi Umur Simpan">
+                                @error('tanggal_ambil')
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="fw-bold"><span>Berat</span>
-                                <input type="number" name='berat' id='berat' required
+                                <input type="number" step="0.1" name='berat' id='berat' required
                                     class="form-control my-2 @error('berat') is-invalid @enderror"
                                     value='{{ $errors->any() ? old('berat') : $lelang->berat }}'
                                     placeholder="Isi Berat">

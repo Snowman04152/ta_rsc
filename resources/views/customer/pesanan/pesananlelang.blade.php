@@ -144,7 +144,7 @@
                         </table>
                         <div>
                            
-                                <form class="d-grid" method="POST" action="{{ route('lelang.checkout', ['id' => $penawaran->id]) }}">
+                                <form class="d-grid" id="checkout" method="POST" action="{{ route('lelang.checkout', ['id' => $penawaran->id]) }}">
                                     @csrf
                                     <input hidden type="number" name="id_alamat"
                                         value="{{ $alamatActive ? $alamatActive->id : '' }}">
@@ -154,7 +154,7 @@
                                         value="{{ $pengiriman ? $pengiriman->cost[0]->value : 0 }}">
                                     <input hidden type="number" name="total_harga" value="{{ $total + $ongkir }}">
                                     <div class="d-grid">
-                                    <button type="submit" class="btn btn-greenlight fw-bold mt-3 "
+                                    <button id="checkout_button" type="submit" class="btn btn-greenlight fw-bold mt-3 "
                                         style="color:#598420 ;"> Buat
                                         Pesanan
                                     </button>
@@ -309,6 +309,33 @@
         </div>
     @else
     @endif
+
+    <script type="module">
+        $(document).ready(function() {
+            $(document).on('click', '#checkout_button', function(e) {
+                e.preventDefault();
+
+                // Tampilkan konfirmasi SweetAlert sebelum melakukan tindakan
+                Swal.fire({
+                    title: 'Apakah Anda Yakin Pesanan Anda Sudah Benar ?',
+                    text: 'Periksa Pesanan Anda Sebelum melakukan pembayaran, Pesanan Yang sudah dibuat tidak dapat diubah!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Tidak'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit form secara otomatis saat pengguna mengonfirmasi
+                        document.getElementById('checkout').submit();
+                    }
+                });
+            });
+            
+        });
+    </script>
+
     {{-- <script type="module">
         const modalKurir = new bootstrap.Modal('#modal-kurir', {
             keyboard: false

@@ -65,7 +65,11 @@
                                     <li><a class="dropdown-item"
                                             href="{{ route('lelang.show', ['lelang' => $lelangs->id]) }}">Detail</a></li>
                                     <li><a class="dropdown-item"
-                                            href="{{ route('lelang.nonaktif', ['id' => $lelangs->id]) }}">Non-Aktifkan</a>
+                                            href="{{ route('lelang.nonaktif', ['id' => $lelangs->id]) }}"
+                                            id='nonaktif'>Non-Aktifkan</a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('lelang.aktif', ['id' => $lelangs->id]) }}"id='aktif'>Aktifkan</a>
                                     </li>
                                     {{-- <form action="{{ route('lelang.destroy', ['lelang' => $lelangs->id]) }}"
                                         method="POST">
@@ -83,3 +87,100 @@
         </table>
     </div>
 @endsection
+
+<script type="module">
+    $(document).ready(function() {
+        $(document).on('click', '#nonaktif', function(e) {
+            e.preventDefault();
+            var link = $(this).attr("href");
+            // Tampilkan konfirmasi SweetAlert sebelum penghapusan
+            Swal.fire({
+                title: "Anda Yakin Ingin Menonaktifkan Lelang ini?",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya ",
+                cancelButtonText: "Tidak ",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Lakukan penghapusan di sini, misal dengan AJAX request ke server
+                    // Setelah penghapusan berhasil, tampilkan pesan berhasil menggunakan SweetAlert
+                    Swal.fire({
+                        title: "Lelang Dinonaktifkan",
+                        text: "",
+                        icon: "success"
+                    });
+                }
+            });
+        });
+        $(document).on('click', '#aktif', function(e) {
+            e.preventDefault();
+            var link = $(this).attr("href");
+            // Tampilkan konfirmasi SweetAlert sebelum penghapusan
+            Swal.fire({
+                title: "Anda Yakin Ingin Mengaktifkan Lelang ini?",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya ",
+                cancelButtonText: "Tidak ",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setTimeout(function() {
+                        window.location.href = link;
+                    }, 2000);
+                    Swal.fire({
+                        title: "Lelang Diaktifkan",
+                        text: "",
+                        icon: "success"
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+{{-- <script type="module">
+    $(document).ready(function() {
+        $(document).on('click', '.btn-delete', function(e) {
+            e.preventDefault();
+
+            // Tampilkan konfirmasi SweetAlert sebelum penghapusan
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Lakukan penghapusan menggunakan AJAX
+                    $.ajax({
+                        url: $('#deleteForm').attr('action'),
+                        type: 'DELETE',
+                        data: $('#deleteForm').serialize(),
+                        success: function(response) {
+                            // Tampilkan pesan sukses setelah menghapus
+                            Swal.fire('Deleted!', 'Your item has been deleted.',
+                                'success');
+                            // Atau lakukan sesuatu setelah berhasil menghapus, seperti memuat ulang halaman
+                            // window.location.reload();
+                        },
+                        error: function(xhr) {
+                            // Tampilkan pesan error jika terjadi kesalahan saat menghapus
+                            Swal.fire('Error!',
+                                'There was an error deleting the item.', 'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script> --}}

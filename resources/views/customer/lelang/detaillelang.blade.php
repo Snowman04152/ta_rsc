@@ -136,12 +136,17 @@
                                 </div>
                                 <div>
                                     <div class="card rounded-3 card-w-md p-3 border-secondary my-2 p-3">
-                                        <h5 class="fw-bold " >Rule Lelang</h5>
-                                        <span class="fs-6">1. Pelelang <b> tidak dapat</b> melakukan penawaran dibawah harga tertinggi</span>
-                                        <span class="fs-6">2. <b>Penawar Pertama harus menawar diatas</b> harga mulai</span>
-                                        <span class="fs-6">3. <b>Pemenang wajib untuk menyelesaikan pesanan</b>, Jika tidak maka akan dibanned pada kegiatan lelang selanjutnya</span>
-                                        <span class="fs-6">4. Jika Pemenang Pertama <b> membatalkan tawaran</b>, maka pemenang kedua otomatis akan menang</span>
-                                        <span class="fs-6">5. Halaman akan <b> Refresh 3 detik </b> secara otomatis , pastikan mengecek dahulu sebelum melakukan penawaran</span>
+                                        <h5 class="fw-bold ">Rule Lelang</h5>
+                                        <span class="fs-6">1. Pelelang <b> tidak dapat</b> melakukan penawaran dibawah
+                                            harga tertinggi</span>
+                                        <span class="fs-6">2. <b>Penawar Pertama harus menawar diatas</b> harga
+                                            mulai</span>
+                                        <span class="fs-6">3. <b>Pemenang wajib untuk menyelesaikan pesanan</b>, Jika
+                                            tidak maka akan dibanned pada kegiatan lelang selanjutnya</span>
+                                        <span class="fs-6">4. Jika Pemenang Pertama <b> membatalkan tawaran</b>, maka
+                                            pemenang kedua otomatis akan menang</span>
+                                        <span class="fs-6">5. Halaman akan <b> Refresh 3 detik </b> secara otomatis ,
+                                            pastikan mengecek dahulu sebelum melakukan penawaran</span>
                                     </div>
                                 </div>
                             @else
@@ -174,8 +179,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-10 d-flex align-items-center ">
-                                                        <a
-                                                            class="h4 fw-bold text-decoration-none   my-auto " id="penawaranTertinggiMax">{{ 'Rp.' . number_format($penawaranTertinggi) }}</a>
+                                                        <a class="h4 fw-bold text-decoration-none   my-auto "
+                                                            id="penawaranTertinggiMax">{{ 'Rp.' . number_format($penawaranTertinggi) }}</a>
                                                         <a style="font-size: 90%;"
                                                             class="text-decoration-none text-secondary my-auto ms-5">{{ time_elapsed_string($dataTertinggi->created_at) }}
                                                         </a>
@@ -212,7 +217,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
                                     @else
                                         <div class="card card-w-md border-secondary my-2">
                                             <div class="card-body">
@@ -222,7 +226,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
                                     @endif
                                     <div class="card rounded-3 card-w-md p-3 border-secondary my-2 p-3">
                                         <div class="d-flex">
@@ -261,12 +264,17 @@
                                     </div>
                                     <div>
                                         <div class="card rounded-3 card-w-md p-3 border-secondary my-2 p-3">
-                                            <h5 class="fw-bold " >Rule Lelang</h5>
-                                            <span class="fs-6">1. Pelelang <b> tidak dapat</b> melakukan penawaran dibawah harga tertinggi</span>
-                                            <span class="fs-6">2. <b>Penawar Pertama harus menawar diatas</b> harga mulai</span>
-                                            <span class="fs-6">3. <b>Pemenang wajib untuk menyelesaikan pesanan</b>, Jika tidak maka akan dibanned pada kegiatan lelang selanjutnya</span>
-                                            <span class="fs-6">4. Jika Pemenang Pertama <b> membatalkan tawaran</b>, maka pemenang kedua otomatis akan menang</span>
-                                            <span class="fs-6">5. Halaman akan <b> Refresh 3 detik </b> secara otomatis , pastikan mengecek dahulu sebelum melakukan penawaran</span>
+                                            <h5 class="fw-bold ">Rule Lelang</h5>
+                                            <span class="fs-6">1. Pelelang <b> tidak dapat</b> melakukan penawaran
+                                                dibawah harga tertinggi</span>
+                                            <span class="fs-6">2. <b>Penawar Pertama harus menawar diatas</b> harga
+                                                mulai</span>
+                                            <span class="fs-6">3. <b>Pemenang wajib untuk menyelesaikan pesanan</b>, Jika
+                                                tidak maka akan dibanned pada kegiatan lelang selanjutnya</span>
+                                            <span class="fs-6">4. Jika Pemenang Pertama <b> membatalkan tawaran</b>, maka
+                                                pemenang kedua otomatis akan menang</span>
+                                            <span class="fs-6">5. Halaman akan <b> Refresh setiap 10 detik </b> secara otomatis ,
+                                                pastikan mengecek dahulu sebelum melakukan penawaran</span>
                                         </div>
                                     </div>
                         @endif
@@ -348,8 +356,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-10 d-flex align-items-center ">
-                                                            <a class="h4 fw-bold text-decoration-none   my-auto "
-                                                                id="penawaranTertinggiMax">{{ 'Rp.' . number_format($penawaranTertinggiMax) }}</a>
+                                                            <div class="d-grid">
+                                                                <span class="text-secondary"
+                                                                    style="font-size: 80%;">{{ date('d/m/Y, H:i', strtotime($dataTertinggi->created_at)) }}</span>
+                                                                <a class="h4 fw-bold text-decoration-none   my-auto "
+                                                                    id="penawaranTertinggiMax">{{ 'Rp.' . number_format($penawaranTertinggiMax) }}</a>
+                                                            </div>
                                                             <a style="font-size: 90%;"
                                                                 class="text-decoration-none text-secondary my-auto ms-5">{{ time_elapsed_string($dataTertinggi->created_at) }}
                                                             </a>
@@ -383,22 +395,25 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-2">
-                                                        <div class="d-grid text-center">
+                                                        <div class="d-grid text-center fw-bold">
                                                             <span class="">Rank</span>
                                                             <span>{{ $rank + 1 }}</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-10 d-flex align-items-center">
-                                                        <a
-                                                            class="h4 fw-bold text-decoration-none   my-auto ">{{ 'Rp.' . number_format($dataTertinggiUser->penawaran_harga) }}</a>
+                                                        <div class="d-grid">
+                                                            <span class="text-secondary fw-bold"
+                                                                style="font-size: 80%;">{{ date('d/m/Y, H:i', strtotime($dataTertinggiUser->created_at)) }}</span>
+                                                            <a class="h4 fw-bold text-decoration-none   my-auto "
+                                                                id="penawaranTertinggiMax">{{ 'Rp.' . number_format($penawaranTertinggiMax) }}</a>
+                                                        </div>
                                                         <a style="font-size: 90%;"
-                                                            class="text-decoration-none text-secondary my-auto ms-5">{{ time_elapsed_string($dataTertinggiUser->created_at) }}
+                                                            class="text-decoration-none fw-bold text-secondary my-auto ms-5">{{ time_elapsed_string($dataTertinggiUser->created_at) }}
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
                             @endif
                         @else
                             <div class="col-8 col-md-6 col-lg-4 ms-0 ">
@@ -553,9 +568,13 @@
         //         document.getElementById("penawaranTertinggiMax").innerText = formattedPrice
         //     })
         // }, 2000);
-        setInterval(() => {
-            window.location.reload();
-        }, 3000);
+
+        @if ($lelang->status_lelang == 1)            
+            setInterval(() => {
+                window.location.reload();
+            }, 10000);
+            @else
+        @endif
     });
 
     let qty_lelang = document.getElementById('qty-lelang')

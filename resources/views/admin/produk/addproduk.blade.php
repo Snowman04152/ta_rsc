@@ -68,7 +68,7 @@
                             </div>
                             <div class="col">
                                 <div class="fw-bold"><span>Stok</span>
-                                    <input type="number" name='stok' id='stok' required
+                                    <input type="number" name='stok' step='0.1' id='stok' required
                                         class="form-control my-2" placeholder="Isi Stok">
                                 </div>
                             </div>

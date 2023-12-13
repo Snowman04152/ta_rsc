@@ -26,14 +26,18 @@
                                     <div class="h2 fw-bold">{{ $produk->nama_produk }}</div>
                                     <div class="row g-0 my-3 h6">
                                         <div class="col-3 ">
-                                            
-                                            <div><i class=" fas fa-star amber-text active">&nbsp</i><span>{{$ratingTotal}}</span></div>
+
+                                            <div><i
+                                                    class=" fas fa-star amber-text active">&nbsp</i><span>{{ $ratingTotal }}</span>
+                                            </div>
                                         </div>
                                         <div class="col-3 ">
-                                            <div class="">{{$transaksiTotal}} <span class=" text-secondary">Terjual</span> </div>
+                                            <div class="">{{ $transaksiTotal }} <span
+                                                    class=" text-secondary">Terjual</span> </div>
                                         </div>
                                         <div class="col-3 ">
-                                            <div class="">{{$ulasanTotal}} <span class=" text-secondary">Ulasan </span> </div>
+                                            <div class="">{{ $ulasanTotal }} <span class=" text-secondary">Ulasan
+                                                </span> </div>
                                         </div>
 
                                     </div>
@@ -120,8 +124,13 @@
                     @if ($keranjangCek)
                         <div class="col-8 col-md-6 col-lg-2">
                             <div class="card rounded-3 card-w p-3 border-secondary my-3">
-                                <div class="card-body">
-                                    Produk Sudah di keranjang
+                                <div class="card-title  text-center">
+                                    <div class="fw-bold h5">
+                                        Produk Sudah di keranjang
+                                    </div>
+                                    <div>
+                                        Silahkan Cek Keranjang Anda Untuk Mengedit Produk
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +140,7 @@
                                 <div class="card-body">
                                     <div class="d-flex">
                                         <span>Varian dipilih :&nbsp </span>
-                                        <span class="fw-bold">{{ ' ' . $varian->berat . ' Kg' }}</span>
+                                        <span class="fw-bold ">{{ ' ' . $varian->berat . ' Kg' }}</span>
                                     </div>
                                     <form method="POST" action="{{ route('keranjang.store', ['id' => $varian->id]) }}">
                                         @csrf
@@ -141,14 +150,14 @@
                                                     <input type="button" id="btn-minus" value="-"
                                                         class="button-minus border  icon-shape icon-sm mx-1 "
                                                         data-field="quantity">
-                                                    <input readonly type="number" id="quantity" step="1"
+                                                    <input readonly type="number" id="quantity" step="0.1"
                                                         max="{{ $varian->stok }}" value="1" name="quantity"
                                                         class="quantity-field border-0 text-center" style="width: 50px;">
                                                     <input type="button" id="btn-plus" value="+"
                                                         class="button-plus border icon-shape icon-sm "
                                                         data-field="quantity">
                                                 </div>
-                                                <div class="ms-3 my-2 fw-bold">
+                                                <div class="ms-2 my-2 fw-bold">
                                                     {{ $produk->stok . 'Kg Tersisa' }}
                                                 </div>
                                                 <div class="d-flex my-3">
@@ -186,11 +195,12 @@
 
                                         @endphp
                                         @if ($cekAlamat != null)
-                                            <form action="{{ route('produk.langsung', ['id' => $varian->id]) }}">
-                                                <input hidden type="text" value="1" name="quantityhid"
+                                            <form id="beli_langsung"
+                                                 action="{{ route('produk.langsung', ['id' => $varian->id]) }}">
+                                                <input hidden readonly type="number" value="1" name="quantityhid"
                                                     id="quantityhid">
                                                 <div class=" mt-3 d-grid">
-                                                    <button type="submit"
+                                                    <button type="submit" id="beli"
                                                         class="btn btn-outline-greenlight text-decoration-none ">
                                                         <div class="greendark fw-bold">Beli Langsung</div>
                                                     </button>
@@ -324,14 +334,18 @@
                                     <div class="h5 fw-bold">{{ $produk->nama_produk }}</div>
                                     <div class="row g-0 my-3 h6">
                                         <div class="col-3 ">
-                                            
-                                            <div><i class=" fas fa-star amber-text active">&nbsp</i><span>{{$ratingTotal}}</span></div>
+
+                                            <div><i
+                                                    class=" fas fa-star amber-text active">&nbsp</i><span>{{ $ratingTotal }}</span>
+                                            </div>
                                         </div>
                                         <div class="col-3 ">
-                                            <div class="">{{$transaksiTotal}} <span class=" text-secondary">Terjual</span> </div>
+                                            <div class="">{{ $transaksiTotal }} <span
+                                                    class=" text-secondary">Terjual</span> </div>
                                         </div>
                                         <div class="col-3 ">
-                                            <div class="">{{$ulasanTotal}} <span class=" text-secondary">Ulasan </span> </div>
+                                            <div class="">{{ $ulasanTotal }} <span class=" text-secondary">Ulasan
+                                                </span> </div>
                                         </div>
 
                                     </div>
@@ -384,6 +398,31 @@
 
         </div>
     @endif
+    <script type="module">
+        $(document).ready(function() {
+    $(document).on('click', '#beli', function(e) {
+        e.preventDefault();
+
+        // Tampilkan konfirmasi SweetAlert sebelum melakukan tindakan
+        Swal.fire({
+            title: 'Apakah Anda Yakin ?',
+            text: 'Anda Akan Masuk Halaman Pesanan',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit form secara otomatis saat pengguna mengonfirmasi
+                document.getElementById('beli_langsung').submit();
+            }
+        });
+    });
+});
+
+    </script>
 @endsection
 <script type="module">
     @if ($varian != null)
@@ -393,9 +432,9 @@
         let btn_plus = document.getElementById('btn-plus');
         let total = document.getElementById('total');
 
-        const hargaSatuan = parseInt("{{ $varian->harga_produk }}");
-        const stok = parseInt("{{ $produk->stok }}");
-        const varianBerat = parseInt("{{ $varian->berat }}"); // Berat dari varian
+        const hargaSatuan = parseFloat("{{ $varian->harga_produk }}");
+        const stok = parseFloat("{{ $produk->stok }}");
+        const varianBerat = parseFloat("{{ $varian->berat }}"); // Berat dari varian
         function updateTotalHarga(qty) {
             let totalHarga = hargaSatuan * qty;
             total.textContent = `Rp.${totalHarga.toLocaleString()}`;
@@ -442,6 +481,38 @@
     @else
     @endif
 </script>
+{{-- <script type="module">
+    $(document).ready(function() {
+        $(document).on('click', '#nonaktif', function(e) {
+            e.preventDefault();
+            var link = $(this).attr("href");
+            // Tampilkan konfirmasi SweetAlert sebelum penghapusan
+            Swal.fire({
+                title: "Anda Yakin Ingin Menonaktifkan Lelang ini?",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya ",
+                cancelButtonText: "Tidak ",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Lakukan penghapusan di sini, misal dengan AJAX request ke server
+                    // Setelah penghapusan berhasil, tampilkan pesan berhasil menggunakan SweetAlert
+                    Swal.fire({
+                        title: "Lelang Dinonaktifkan",
+                        text: "",
+                        icon: "success"
+                    });
+                }
+            });
+        });
+    });
+</script> --}}
+
+
+
 {{-- <script type="module">
     let quantity = document.getElementById('quantity')
     let btn_minus = document.getElementById('btn-minus')

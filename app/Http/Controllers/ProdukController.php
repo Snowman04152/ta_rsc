@@ -230,7 +230,8 @@ class ProdukController extends Controller
             $id_keranjang = $keranjangs['id_keranjang'];
             $keranjang = Keranjang::with('varian')->find($keranjangs['id_keranjang']);
             $produk = Produk::find($keranjang->varian->id_produk);
-            $produk->stok -= $keranjang->jumlah_produk;
+            $produk->stok -= $keranjang->jumlah_produk * $keranjang->varian->berat ;
+            
             $produk->save();
             $keranjang->id_transaksi = $transaksi->id;
             $keranjang->save();
@@ -266,7 +267,7 @@ class ProdukController extends Controller
         $transaksi->snaptoken = $snapToken;
         $transaksi->save();
 
-        Alert::success('Pesanan DIbuat', 'Pesanan Berhasil Dibuat!.');
+        Alert::success('Pesanan Dibuat', 'Pesanan Berhasil Dibuat!.');
 
         return redirect()->route('produk.beli.view', ['id' => $transaksi->id]);
     }

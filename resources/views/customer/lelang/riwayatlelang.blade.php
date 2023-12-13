@@ -119,9 +119,9 @@
                                                             $cekAlamat = App\Models\Alamat::where('id_user', auth()->id())->first();
                                                         @endphp
                                                         @if ($cekAlamat == null)
-                                                            <button data-bs-toggle="modal" data-bs-target='#modal-alert'
-                                                                class="btn btn-greenlight d-grid justify-content-end fw-bold"
-                                                                style="color:#598420 ;">Pesan Sekarang!</button>
+                                                            <object><a data-bs-toggle="modal" data-bs-target='#modal-alert'
+                                                                    class="btn btn-greenlight d-grid  fw-bold"
+                                                                    style="color:#598420 ;">Pesan Sekarang!</a></object>
                                                         @else
                                                             <form class="d-grid justify-content-end" method="GET"
                                                                 action="{{ route('lelang.pesanan', ['id' => $penawaranMaxUser->id]) }}">
@@ -414,7 +414,7 @@
                                 </a>
                             @endif
                         @else
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-2">
                                     <div class="d-grid">
                                         <div class="btn btn-outline-greenlight">Batal</div>
@@ -425,7 +425,7 @@
                                         <button class="btn btn-greenlight">Konfirmasi</button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         @endif
                     @endif
                 @endforeach

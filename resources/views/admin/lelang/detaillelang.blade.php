@@ -28,16 +28,18 @@
                 @if ($lelang->status_lelang === 0)
                     <div class="col"><span class="fw-bold">Status : </span><span class="p-2">Belum Dimulai</span>
                     </div>
-                    <form action="{{ route('lelang.start', ['id' => $lelang->id]) }}" method="POST">
+                    <form action="{{ route('lelang.start', ['id' => $lelang->id]) }}" id="form_start" method="POST">
                         @csrf
-                        <button type='submit' class="btn btn-greenlight fw-bold my-2 " style="color:#598420 ;">Mulai
+                        <button type='submit' class="btn btn-greenlight fw-bold my-2 " id="start"
+                            style="color:#598420 ;">Mulai
                             Lelang</button>
                     </form>
                 @elseif($lelang->status_lelang === 1)
                     <div class="col"><span>Status : </span><span class="p-2">Berjalan</span></div>
-                    <form action="{{ route('lelang.end', ['id' => $lelang->id]) }}" method="POST">
+                    <form action="{{ route('lelang.end', ['id' => $lelang->id]) }}" id="form_end" method="POST">
                         @csrf
-                        <button type='submit' class="btn btn-greenlight fw-bold my-2 " style="color:#598420 ;">Tutup
+                        <button type='submit' id="end" class="btn btn-greenlight fw-bold my-2 "
+                            style="color:#598420 ;">Tutup
                             Pelelangan</button>
                     </form>
                 @else
@@ -84,8 +86,8 @@
 
                                     @endphp
                                     <td><a class="btn btn-outline-success btn-sm"
-                                        href="https://api.whatsapp.com/send?phone={{ $telp_user }}&text=Selamat Anda Telah Menang Lelang">Hubungi
-                                        Pelanggan </a></td>
+                                            href="https://api.whatsapp.com/send?phone={{ $telp_user }}&text=Selamat Anda Telah Menang Lelang">Hubungi
+                                            Pelanggan </a></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -136,7 +138,8 @@
                                 <th scope="col">Rank</th>
                                 <th scope="col">Username</th>
                                 <th scope="col">Penawaran</th>
-                                <th scope="col">Tanggal</th>
+                                <th scope="col">Tanggal Penawaran</th>
+                                <th scope="col">Tanggal Konfirmasi</th>
                                 <th scope="col">Opsi</th>
                             </tr>
                         </thead>
@@ -152,6 +155,7 @@
                                     <td>{{ $penawarans->user->username }}</td>
                                     <td>{{ 'Rp.' . number_format($penawarans->penawaran_harga) }}</td>
                                     <td>{{ toIndoDate($penawarans->created_at) }}</td>
+                                    <td>{{ toIndoDate($penawarans->produk_lelang->tanggal_konfirmasi_lelang) }}</td>
                                     @php
 
                                         if (substr($penawarans->user->telp_user, 0, 1) === '0') {
@@ -164,9 +168,13 @@
                                     @if ($rank == 1)
                                         <td><a class="btn btn-outline-success btn-sm"
                                                 href="https://api.whatsapp.com/send?phone={{ $telp_user }}&text=Selamat Anda Telah Menang Lelang">Hubungi
-                                                Pelanggan </a></td>
+                                                Pelanggan </a>
+                                            <a id="cancel_penawaran"
+                                                href="{{ route('cancel.penawaran', ['id' => $penawarans->id]) }}"
+                                                class="btn btn-outline-danger btn-sm">Batalkan Penawaran </a>
+                                        </td>
                                     @else
-                                    <td></td>
+                                        <td></td>
                                     @endif
                                 </tr>
                             @endforeach
@@ -203,3 +211,161 @@
     </div> --}}
     </div>
 @endsection
+{{-- <script type="module">
+    $(document).ready(function() {
+        $(document).on('click', '#nonaktif', function(e) {
+            e.preventDefault();
+            var link = $(this).attr("href");
+            // Tampilkan konfirmasi SweetAlert sebelum penghapusan
+            Swal.fire({
+                title: "Anda Yakin Ingin Menonaktifkan Lelang ini?",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya ",
+                cancelButtonText: "Tidak ",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Lakukan penghapusan di sini, misal dengan AJAX request ke server
+                    // Setelah penghapusan berhasil, tampilkan pesan berhasil menggunakan SweetAlert
+                    Swal.fire({
+                        title: "Lelang Dinonaktifkan",
+                        text: "",
+                        icon: "success"
+                    });
+                }
+            });
+        });
+    });
+</script> --}}
+
+<script type="module">
+    document.addEventListener('DOMContentLoaded', function() {
+
+        @if ($lelang->status_lelang == 1)
+            setInterval(() => {
+                window.location.reload();
+            }, 5000);
+        @else
+        @endif
+    });
+
+
+    $(document).ready(function() {
+        $(document).on('click', '#cancel_penawaran', function(e) {
+            e.preventDefault();
+            var link = $(this).attr("href");
+            // Tampilkan konfirmasi SweetAlert sebelum penghapusan
+            Swal.fire({
+                title: "Anda Yakin Membatalkan Penawaran Ini?",
+                text: "Pastikan Dahulu Sebelum Membatalkan , Karena User yang dibatalkan akan dinonaktifkan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya ",
+                cancelButtonText: "Tidak ",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setTimeout(function() {
+                        // Arahkan pengguna ke link setelah konfirmasi
+                        window.location.href = link;
+                    }, 3000);
+                    // Lakukan penghapusan di sini, misal dengan AJAX request ke server
+                    // Setelah penghapusan berhasil, tampilkan pesan berhasil menggunakan SweetAlert
+                    Swal.fire({
+                        title: "Penawaran Dibatalkan",
+                        text: "",
+                        icon: "success"
+                    });
+                }
+            });
+        });
+        $(document).on('click', '#start', function(e) {
+            e.preventDefault();
+
+            // Tampilkan konfirmasi SweetAlert sebelum penghapusan
+            Swal.fire({
+                title: 'Apakah Anda Ingin Memulai Lelang?',
+
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Lakukan penghapusan menggunakan AJAX
+                    $.ajax({
+                        url: $('#form_start').attr('action'),
+                        type: 'POST',
+                        data: $('#form_start').serialize(),
+                        success: function(response) {
+                            // Tampilkan pesan sukses setelah menghapus
+                            Swal.fire({
+                                title: 'Anda Telah Memulai Pelelangan',
+                                icon: 'success'
+                            });
+                            // Atau lakukan sesuatu setelah berhasil menghapus, seperti memuat ulang halaman
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 2000);
+                            // window.location.reload();
+                        },
+                        error: function(xhr) {
+                            // Tampilkan pesan error jika terjadi kesalahan saat menghapus
+                            Swal.fire('Error!',
+                                'There was an error deleting the item.', 'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+        $(document).on('click', '#end', function(e) {
+            e.preventDefault();
+
+            // Tampilkan konfirmasi SweetAlert sebelum penghapusan
+            Swal.fire({
+                title: 'Apakah Anda Ingin Mengakhiri Pelelangan?',
+
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Lakukan penghapusan menggunakan AJAX
+                    $.ajax({
+                        url: $('#form_end').attr('action'),
+                        type: 'POST',
+                        data: $('#form_end').serialize(),
+                        success: function(response) {
+                            // Tampilkan pesan sukses setelah menghapus
+                            Swal.fire({
+                                title: 'Anda Telah Mengakhiri Pelelangan',
+                                icon: 'success'
+                            });
+                            // Atau lakukan sesuatu setelah berhasil menghapus, seperti memuat ulang halaman
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 2000);
+                            // window.location.reload();
+                        },
+                        error: function(xhr) {
+                            // Tampilkan pesan error jika terjadi kesalahan saat menghapus
+                            Swal.fire('Error!',
+                                'There was an error deleting the item.', 'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
