@@ -1,5 +1,5 @@
 import './bootstrap';
-import.meta.glob(["../image/**"]);
+import.meta.glob(["../images/**"]);
 import './qty.js';
 import './lelang.js';
 import jQuery from 'jquery';
